@@ -47,14 +47,14 @@ export class HotObservablesIntroComponent implements OnInit {
     let producer: Producer = new Producer();
     producer.start();
     setTimeout(() => {
-      producer.addListener((n) => console.log('From listener 1', n));
-      producer.addListener((n) => console.log('From listener 2', n));
+      producer.addListener((n: any) => console.log('From listener 1', n));
+      producer.addListener((n: any) => console.log('From listener 2', n));
 
     }, 4000);
 
     const myHotObservable = new Observable(
       (observer: Observer<number>) => {
-        producer.addListener((n) => observer.next(n))
+        producer.addListener((n: any) => observer.next(n))
       }
     )
     myHotObservable.subscribe((n) => console.log('From Subscribe 1', n))
