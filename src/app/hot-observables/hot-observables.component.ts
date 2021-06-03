@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ConnectableObservable, Observable, Observer, Subject } from 'rxjs';
 
-import { publish, refCount } from 'rxjs/operators';
+import { publish, refCount, share } from 'rxjs/operators';
 @Component({
   selector: 'app-hot-observables',
   templateUrl: './hot-observables.component.html',
@@ -29,7 +29,8 @@ export class HotObservablesComponent implements OnInit {
       }
     )
     // this.usingSubjects();
-    this.usingPublish();
+    // this.usingPublish();
+    this.usingShare();
   }
 
   public usingPublish() {
@@ -40,6 +41,31 @@ export class HotObservablesComponent implements OnInit {
       publish()
     ) as ConnectableObservable<number>;
     multicasted.connect();
+    //Subscribe 1
+    this.s1 = 'waiting for interval...'
+    setTimeout(() => {
+      multicasted.subscribe((_n) => {
+        this.n1 = _n;
+        this.s1 = 'ok';
+      })
+    }, 2000)
+
+
+    //Subscribe 2
+    this.s2 = 'waiting for interval...'
+    setTimeout(() => {
+      multicasted.subscribe((_n) => {
+        this.n2 = _n;
+        this.s2 = 'ok';
+      })
+    }, 4000)
+  }
+
+  public usingShare() {
+    const multicasted = this.myObservable.pipe(
+      share()
+    );
+
     //Subscribe 1
     this.s1 = 'waiting for interval...'
     setTimeout(() => {
