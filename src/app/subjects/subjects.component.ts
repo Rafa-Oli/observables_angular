@@ -10,10 +10,10 @@ import { GenRandomDataService } from '../gen-random-data.service';
 })
 export class SubjectsComponent implements OnInit {
 
-  private subject: Subject<DataModel>;
-  private replaySubject: ReplaySubject<DataModel>;
-  private asyncSubject: AsyncSubject<DataModel>;
-  private behaviorSubject: BehaviorSubject<DataModel>;
+  public subject: Subject<DataModel>;
+  public replaySubject: ReplaySubject<DataModel>;
+  public asyncSubject: AsyncSubject<DataModel>;
+  public behaviorSubject: BehaviorSubject<DataModel>;
 
 
   constructor(private dataService: GenRandomDataService) { }
